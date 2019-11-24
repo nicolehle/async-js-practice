@@ -67,22 +67,38 @@
         };
 
         //getIDs.then(ids => {console.log(ids)} result: Array(4) / When the parameter is IDs, result: actual array in the resolve... why???);
-        getIDs
-        .then(IDs => {
-          console.log(IDs);
-          return getRecipes(IDs[2]);
-        })
-        .then(recipe => {
-          console.log(recipe);
-          return getPublisher('Daniel');
-        })
-        .then(recipe => {
-          console.log(recipe);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+        // getIDs
+        // .then(IDs => {
+        //   console.log(IDs);
+        //   return getRecipes(IDs[2]);
+        // })
+        // .then(recipe => {
+        //   console.log(recipe);
+        //   return getPublisher('Daniel');
+        // })
+        // .then(recipe => {
+        //   console.log(recipe);
+        // })
+        // .catch(error => {
+        //   console.log(error);
+        // });
 
+
+        async function getRecipesAW() {
+          const IDs = await getIDs;
+          console.log(IDs);
+
+          const recipe = await getRecipes(IDs[2]);
+          console.log(recipe);
+
+          const publisher = await getPublisher('Daniel');
+          console.log(publisher);
+
+          return recipe;
+        };
+        getRecipesAW().then(result => {
+          console.log(`${result} is the best!`);
+        });
 
     </script>
 </body>
