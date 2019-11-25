@@ -42,29 +42,29 @@
         //
         // getRecipes();
 
-
-        const getIDs = new Promise((resolve, reject) => {
-          setTimeout(() => {
-            resolve([123, 456, 789, 134]);
-          }, 1500);
-        });
-
-        const getRecipes = recID => {
-          return new Promise((resolve, reject) => {
-            setTimeout(id => {
-              const recipe ={title: 'Tomato Pasta', publisher: 'Nicole'};
-              resolve(`${id}: ${recipe.title}`);
-            }, 1500, recID);
-            });
-        };
-
-        const getPublisher = publisher => {
-          return new Promise((resolve, reject) => {
-            setTimeout(pub => {
-              const recipe = {title: 'pizza', publisher: 'Daniel'};
-              resolve(`${pub}: ${recipe.title}`);
-          }, 1500, publisher);})
-        };
+        //
+        // const getIDs = new Promise((resolve, reject) => {
+        //   setTimeout(() => {
+        //     resolve([123, 456, 789, 134]);
+        //   }, 1500);
+        // });
+        //
+        // const getRecipes = recID => {
+        //   return new Promise((resolve, reject) => {
+        //     setTimeout(id => {
+        //       const recipe ={title: 'Tomato Pasta', publisher: 'Nicole'};
+        //       resolve(`${id}: ${recipe.title}`);
+        //     }, 1500, recID);
+        //     });
+        // };
+        //
+        // const getPublisher = publisher => {
+        //   return new Promise((resolve, reject) => {
+        //     setTimeout(pub => {
+        //       const recipe = {title: 'pizza', publisher: 'Daniel'};
+        //       resolve(`${pub}: ${recipe.title}`);
+        //   }, 1500, publisher);})
+        // };
 
         //getIDs.then(ids => {console.log(ids)} result: Array(4) / When the parameter is IDs, result: actual array in the resolve... why???);
         // getIDs
@@ -84,21 +84,44 @@
         // });
 
 
-        async function getRecipesAW() {
-          const IDs = await getIDs;
-          console.log(IDs);
+        // async function getRecipesAW() {
+        //   const IDs = await getIDs;
+        //   console.log(IDs);
+        //
+        //   const recipe = await getRecipes(IDs[2]);
+        //   console.log(recipe);
+        //
+        //   const publisher = await getPublisher('Daniel');
+        //   console.log(publisher);
+        //
+        //   return recipe;
+        // };
+        // getRecipesAW().then(result => {
+        //   console.log(`${result} is the best!`);
+        // });
 
-          const recipe = await getRecipes(IDs[2]);
-          console.log(recipe);
+        function getWeather() {
 
-          const publisher = await getPublisher('Daniel');
-          console.log(publisher);
+          fetch(' https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/44418/')
+          .then(data => {
+            console.log(data);
+             return data.json();
+          })
+          .then(data => {
+            const now = new Date()
+            const cityName = data.title;
+            const today = data.consolidated_weather[0].applicable_date;
+            const weather = data.consolidated_weather[0].weather_state_name;
 
-          return recipe;
+            console.log(data);
+            console.log(`${today}, ${cityName} is ${weather} weather`);
+          })
+          .catch(error => {
+            console.log(error);
+          })
         };
-        getRecipesAW().then(result => {
-          console.log(`${result} is the best!`);
-        });
+        getWeather();
+
 
     </script>
 </body>
