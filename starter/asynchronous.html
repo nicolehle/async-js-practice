@@ -100,29 +100,45 @@
         //   console.log(`${result} is the best!`);
         // });
 
-        function getWeather() {
+        // function getWeather(locationID) {
+        //
+        //   fetch(`https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${locationID}/`)
+        //   .then(data => {
+        //     console.log(data);
+        //      return data.json();
+        //   })
+        //   .then(data => {
+        //     const now = new Date()
+        //     const cityName = data.title;
+        //     const today = data.consolidated_weather[0].applicable_date;
+        //     const weather = data.consolidated_weather[0].weather_state_name;
+        //
+        //     console.log(data);
+        //     console.log(`${today}, ${cityName} is ${weather} weather`);
+        //   })
+        //   .catch(error => {
+        //     console.log(error);
+        //   })
+        // };
+        // getWeather(44418);
+        // getWeather(2487956);
 
-          fetch(' https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/44418/')
-          .then(data => {
+
+        async function getWeather(locationID) {
+            const result = await fetch(`https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${locationID}/`);
+            const data = await result.json();
             console.log(data);
-             return data.json();
-          })
-          .then(data => {
+
             const now = new Date()
             const cityName = data.title;
             const today = data.consolidated_weather[0].applicable_date;
             const weather = data.consolidated_weather[0].weather_state_name;
 
-            console.log(data);
             console.log(`${today}, ${cityName} is ${weather} weather`);
-          })
-          .catch(error => {
-            console.log(error);
-          })
         };
-        getWeather();
 
-
+        getWeather(44418);
+        getWeather(2487956);
     </script>
 </body>
 </html>
